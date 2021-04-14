@@ -1,4 +1,4 @@
-package com.litesoftteam.mvvm.sample
+package com.litesoftteam.mvvm.sample.core.entity
 
 data class User(
         val id: Int,
