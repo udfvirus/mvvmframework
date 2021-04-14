@@ -1,6 +1,8 @@
-package com.litesoftteam.mvvm.sample
+package com.litesoftteam.mvvm.sample.data.repository
 
 import com.litesoftteam.mvvm.core.entity.Event
+import com.litesoftteam.mvvm.sample.core.entity.User
+import com.litesoftteam.mvvm.sample.domain.repository.UserRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.withContext
