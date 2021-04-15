@@ -17,7 +17,6 @@ abstract class BaseAdapter<T : Any> : RecyclerView.Adapter<BaseViewHolder<T>>() 
         notifyItemRangeInserted(items.size - itemList.size, itemList.size)
     }
 
-
     fun removeItem(item: T) {
         val position = items.indexOf(item)
         items.removeAt(position)
@@ -31,5 +30,4 @@ abstract class BaseAdapter<T : Any> : RecyclerView.Adapter<BaseViewHolder<T>>() 
     override fun onBindViewHolder(holder: BaseViewHolder<T>, position: Int) {
         holder.bind(items[position])
     }
-
 }
