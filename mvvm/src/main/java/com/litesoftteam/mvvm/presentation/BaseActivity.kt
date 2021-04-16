@@ -9,6 +9,7 @@ import androidx.lifecycle.Observer
 import com.litesoftteam.mvvm.core.entity.Event
 import com.litesoftteam.mvvm.core.entity.EventWithSuccessAndError
 
+@Suppress("unused")
 abstract class BaseActivity : AppCompatActivity {
 
     constructor() : super()
