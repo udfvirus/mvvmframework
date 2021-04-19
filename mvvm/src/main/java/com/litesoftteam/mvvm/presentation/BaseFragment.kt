@@ -16,6 +16,8 @@ abstract class BaseFragment : Fragment {
 
     constructor(@LayoutRes contentLayoutId: Int) : super(contentLayoutId)
 
+    private fun getBaseActivity() = activity as? BaseActivity
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         initObservers()
@@ -27,6 +29,20 @@ abstract class BaseFragment : Fragment {
 
     protected fun <T> observeEvent(liveData: LiveData<Event<T>>,
                                    result: EventWithSuccessAndError<T>) {
+        liveData.observe(this) {
+            when (it.status) {
+                Event.Status.SUCCESS -> {
+                    result.success(it.data!!)
+                }
+                Event.Status.ERROR -> {
+                    result.error(it.throwable!!)
+                }
+            }
+        }
+    }
+
+    protected fun <T> observeEventWithProgress(liveData: LiveData<Event<T>>,
+                                               result: EventWithSuccessAndError<T>) {
         liveData.observe(this) {
             when (it.status) {
                 Event.Status.LOADING -> {
@@ -45,11 +61,13 @@ abstract class BaseFragment : Fragment {
     }
 
     protected open fun showProgressBar() {
-        // none
+        println("test: showProgressBar")
+        getBaseActivity()?.showProgressBar()
     }
 
     protected open fun hideProgressBar() {
-        // none
+        println("test: hideProgressBar")
+        getBaseActivity()?.hideProgressBar()
     }
 
     @CallSuper

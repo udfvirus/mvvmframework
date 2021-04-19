@@ -24,7 +24,7 @@ class UserListFragment : BaseFragment(R.layout.fragment_user_list) {
     override fun initObservers() {
         super.initObservers()
 
-        observeEvent(model.usersLiveData, object : EventWithSuccessAndError<List<User>> {
+        observeEventWithProgress(model.usersLiveData, object : EventWithSuccessAndError<List<User>> {
 
             override fun success(value: List<User>) {
                 logger.d("Users: $value")

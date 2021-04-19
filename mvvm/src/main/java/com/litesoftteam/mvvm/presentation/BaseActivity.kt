@@ -9,6 +9,7 @@ import androidx.lifecycle.Observer
 import com.litesoftteam.mvvm.core.entity.Event
 import com.litesoftteam.mvvm.core.entity.EventWithSuccessAndError
 import com.litesoftteam.mvvm.di.NavigationFactory
+import com.litesoftteam.mvvm.presentation.dialog.ProgressDialog
 import com.litesoftteam.mvvm.presentation.navigation.BaseNavigator
 
 @Suppress("unused", "MemberVisibilityCanBePrivate")
@@ -17,6 +18,8 @@ abstract class BaseActivity : AppCompatActivity {
     protected abstract val navigator: BaseNavigator
 
     protected val navigatorHolder by lazy { NavigationFactory.getNavigationHolder() }
+
+    private var progressDialog: ProgressDialog? = null
 
     constructor() : super()
 
@@ -45,6 +48,20 @@ abstract class BaseActivity : AppCompatActivity {
                                    result: EventWithSuccessAndError<T>) {
         liveData.observe(this) {
             when (it.status) {
+                Event.Status.SUCCESS -> {
+                    result.success(it.data!!)
+                }
+                Event.Status.ERROR -> {
+                    result.error(it.throwable!!)
+                }
+            }
+        }
+    }
+
+    protected fun <T> observeEventWithProgress(liveData: LiveData<Event<T>>,
+                                               result: EventWithSuccessAndError<T>) {
+        liveData.observe(this) {
+            when (it.status) {
                 Event.Status.LOADING -> {
                     showProgressBar()
                 }
@@ -60,12 +77,19 @@ abstract class BaseActivity : AppCompatActivity {
         }
     }
 
-    protected open fun showProgressBar() {
-        // none
+    open fun showProgressBar() {
+        if (progressDialog == null) {
+            progressDialog = ProgressDialog()
+        } else {
+            progressDialog?.dismiss()
+        }
+
+        progressDialog?.show(supportFragmentManager)
     }
 
-    protected open fun hideProgressBar() {
-        // none
+    open fun hideProgressBar() {
+        progressDialog?.dismiss()
+        progressDialog = null
     }
 
     @CallSuper

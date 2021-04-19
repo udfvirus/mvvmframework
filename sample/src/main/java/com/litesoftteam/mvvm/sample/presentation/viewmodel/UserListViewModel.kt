@@ -9,6 +9,7 @@ import com.litesoftteam.mvvm.presentation.viewmodel.BaseViewModel
 import com.litesoftteam.mvvm.sample.core.entity.User
 import com.litesoftteam.mvvm.sample.data.repository.LocalUserRepository
 import com.litesoftteam.mvvm.sample.presentation.navigation.screen.DetailsScreen
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import ru.terrakok.cicerone.Router
 
@@ -20,7 +21,9 @@ class UserListViewModel(router: Router) : BaseViewModel(router) {
 
     fun loadUsers() {
         viewModelScope.launch {
-            _usersLiveData.postValue(LocalUserRepository().getAllUsers())
+            LocalUserRepository().getAllUsers().collect {
+                _usersLiveData.postValue(it)
+            }
         }
     }
 
