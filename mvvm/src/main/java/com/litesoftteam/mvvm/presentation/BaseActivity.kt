@@ -55,4 +55,8 @@ abstract class BaseActivity : AppCompatActivity {
     @CallSuper
     protected open fun initObservers() {
     }
+
+    open fun onError(throwable: Throwable?) = throwable?.let {
+        // none
+    }
 }

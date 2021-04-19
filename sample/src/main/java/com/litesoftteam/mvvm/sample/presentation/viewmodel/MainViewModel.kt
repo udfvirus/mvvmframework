@@ -1,24 +1,18 @@
 package com.litesoftteam.mvvm.sample.presentation.viewmodel
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import com.litesoftteam.mvvm.core.entity.Event
-import com.litesoftteam.mvvm.sample.core.entity.User
-import com.litesoftteam.mvvm.sample.data.repository.LocalUserRepository
-import kotlinx.coroutines.launch
 
 class MainViewModel : ViewModel() {
 
-    private val _usersLiveData = MutableLiveData<Event<List<User>>>()
+    fun openUserListScreen() {
+        // TODO: 17.04.21 Implement open UserList Screen logic
+    }
 
-    val usersLiveData: LiveData<Event<List<User>>> = _usersLiveData
+    fun openSearchScreen() {
+        // TODO: 19.04.21 Implement open Search Screen logic
+    }
 
-    fun loadUsers() {
-        viewModelScope.launch {
-            _usersLiveData.postValue(LocalUserRepository().getAllUsers())
-        }
+    fun openSettingsScreen() {
+        // TODO: 19.04.21 Implement open Settings Screen logic
     }
 }
