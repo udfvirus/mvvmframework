@@ -1,18 +1,22 @@
 package com.litesoftteam.mvvm.sample.presentation.viewmodel
 
-import androidx.lifecycle.ViewModel
+import com.litesoftteam.mvvm.presentation.viewmodel.BaseViewModel
+import com.litesoftteam.mvvm.sample.presentation.navigation.screen.SearchScreen
+import com.litesoftteam.mvvm.sample.presentation.navigation.screen.SettingsScreen
+import com.litesoftteam.mvvm.sample.presentation.navigation.screen.UserListScreen
+import ru.terrakok.cicerone.Router
 
-class MainViewModel : ViewModel() {
+class MainViewModel(router: Router) : BaseViewModel(router) {
 
     fun openUserListScreen() {
-        // TODO: 17.04.21 Implement open UserList Screen logic
+        router.newRootScreen(UserListScreen())
     }
 
     fun openSearchScreen() {
-        // TODO: 19.04.21 Implement open Search Screen logic
+        router.navigateTo(SearchScreen())
     }
 
     fun openSettingsScreen() {
-        // TODO: 19.04.21 Implement open Settings Screen logic
+        router.navigateTo(SettingsScreen())
     }
 }

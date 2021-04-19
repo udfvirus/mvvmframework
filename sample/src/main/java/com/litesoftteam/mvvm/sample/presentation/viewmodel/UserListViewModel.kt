@@ -3,14 +3,16 @@ package com.litesoftteam.mvvm.sample.presentation.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.litesoftteam.mvvm.core.entity.Event
+import com.litesoftteam.mvvm.presentation.viewmodel.BaseViewModel
 import com.litesoftteam.mvvm.sample.core.entity.User
 import com.litesoftteam.mvvm.sample.data.repository.LocalUserRepository
+import com.litesoftteam.mvvm.sample.presentation.navigation.screen.DetailsScreen
 import kotlinx.coroutines.launch
+import ru.terrakok.cicerone.Router
 
-class UserListViewModel : ViewModel() {
+class UserListViewModel(router: Router) : BaseViewModel(router) {
 
     private val _usersLiveData = MutableLiveData<Event<List<User>>>()
 
@@ -23,6 +25,6 @@ class UserListViewModel : ViewModel() {
     }
 
     fun openDetailsScreen(user: User) {
-        // TODO: 17.04.21 Implement open details logic
+        router.navigateTo(DetailsScreen(user))
     }
 }

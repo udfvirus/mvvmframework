@@ -53,6 +53,8 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-common-java8:$lifecycle_version"
     implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
 
+    // navigation
+    implementation "ru.terrakok.cicerone:cicerone:5.1.1"
 
     implementation project(path: ':mvvm')
 }

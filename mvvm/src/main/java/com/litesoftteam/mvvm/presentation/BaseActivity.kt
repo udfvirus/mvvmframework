@@ -8,9 +8,15 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import com.litesoftteam.mvvm.core.entity.Event
 import com.litesoftteam.mvvm.core.entity.EventWithSuccessAndError
+import com.litesoftteam.mvvm.di.NavigationFactory
+import com.litesoftteam.mvvm.presentation.navigation.BaseNavigator
 
-@Suppress("unused")
+@Suppress("unused", "MemberVisibilityCanBePrivate")
 abstract class BaseActivity : AppCompatActivity {
+
+    protected abstract val navigator: BaseNavigator
+
+    protected val navigatorHolder by lazy { NavigationFactory.getNavigationHolder() }
 
     constructor() : super()
 
@@ -19,6 +25,16 @@ abstract class BaseActivity : AppCompatActivity {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         initObservers()
+    }
+
+    override fun onResumeFragments() {
+        super.onResumeFragments()
+        navigatorHolder.setNavigator(navigator)
+    }
+
+    override fun onPause() {
+        navigatorHolder.removeNavigator()
+        super.onPause()
     }
 
     protected fun <T> observeEvent(liveData: LiveData<Event<T>>, observer: Observer<Event<T>>) {
