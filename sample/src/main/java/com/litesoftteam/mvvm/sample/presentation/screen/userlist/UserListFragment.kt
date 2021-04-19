@@ -7,18 +7,19 @@ import com.litesoftteam.mvvm.core.entity.EventWithSuccessAndError
 import com.litesoftteam.mvvm.presentation.BaseFragment
 import com.litesoftteam.mvvm.sample.R
 import com.litesoftteam.mvvm.sample.core.entity.User
+import com.litesoftteam.mvvm.sample.di.ViewModelProviderFactory
 import com.litesoftteam.mvvm.sample.presentation.adapter.UserAdapter
 import com.litesoftteam.mvvm.sample.presentation.viewmodel.UserListViewModel
 import com.litesoftteam.mvvm.util.logger.LoggerFactory
-import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.fragment_user_list.*
 
-class UserListFragment : BaseFragment(R.layout.fragment_details) {
+class UserListFragment : BaseFragment(R.layout.fragment_user_list) {
 
-    private val model: UserListViewModel by viewModels()
+    private val model: UserListViewModel by viewModels { ViewModelProviderFactory.createUserListViewModel() }
 
     private val logger = LoggerFactory.create(this.javaClass)
 
-    private val userAdapter = UserAdapter(model::openDetailsScreen)
+    private var userAdapter: UserAdapter? = null
 
     override fun initObservers() {
         super.initObservers()
@@ -27,7 +28,7 @@ class UserListFragment : BaseFragment(R.layout.fragment_details) {
 
             override fun success(value: List<User>) {
                 logger.d("Users: $value")
-                userAdapter.addItems(value)
+                userAdapter?.addItems(value)
             }
 
             override fun error(throwable: Throwable) {
@@ -44,6 +45,7 @@ class UserListFragment : BaseFragment(R.layout.fragment_details) {
     }
 
     private fun initRecycleView() {
+        userAdapter = UserAdapter(model::openDetailsScreen)
         usersRecyclerView.adapter = userAdapter
     }
 

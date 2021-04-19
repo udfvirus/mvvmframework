@@ -6,12 +6,16 @@ import android.view.MenuItem
 import androidx.activity.viewModels
 import com.litesoftteam.mvvm.presentation.BaseActivity
 import com.litesoftteam.mvvm.sample.R
+import com.litesoftteam.mvvm.sample.di.ViewModelProviderFactory
+import com.litesoftteam.mvvm.sample.presentation.navigation.MainActivityNavigator
 import com.litesoftteam.mvvm.sample.presentation.viewmodel.MainViewModel
 import kotlinx.android.synthetic.main.toolbar_main.*
 
 class MainActivity : BaseActivity(R.layout.activity_main) {
 
-    private val model: MainViewModel by viewModels()
+    private val model: MainViewModel by viewModels { ViewModelProviderFactory.createMainViewModel() }
+
+    override val navigator = MainActivityNavigator(this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
