@@ -2,20 +2,19 @@ package com.litesoftteam.mvvm.sample.presentation.screen.userlist
 
 import android.os.Bundle
 import android.view.View
-import androidx.fragment.app.viewModels
 import com.litesoftteam.mvvm.core.entity.EventWithSuccessAndError
 import com.litesoftteam.mvvm.presentation.BaseFragment
 import com.litesoftteam.mvvm.sample.R
 import com.litesoftteam.mvvm.sample.core.entity.User
-import com.litesoftteam.mvvm.sample.di.ViewModelProviderFactory
 import com.litesoftteam.mvvm.sample.presentation.adapter.UserAdapter
 import com.litesoftteam.mvvm.sample.presentation.viewmodel.UserListViewModel
 import com.litesoftteam.mvvm.util.logger.LoggerFactory
 import kotlinx.android.synthetic.main.fragment_user_list.*
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class UserListFragment : BaseFragment(R.layout.fragment_user_list) {
 
-    private val model: UserListViewModel by viewModels { ViewModelProviderFactory.createUserListViewModel() }
+    private val model by viewModel<UserListViewModel>()
 
     private val logger = LoggerFactory.create(this.javaClass)
 
