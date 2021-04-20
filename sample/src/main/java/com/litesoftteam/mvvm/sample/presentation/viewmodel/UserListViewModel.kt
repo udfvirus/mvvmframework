@@ -3,14 +3,11 @@ package com.litesoftteam.mvvm.sample.presentation.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 
-import androidx.lifecycle.viewModelScope
 import com.litesoftteam.mvvm.core.entity.Event
 import com.litesoftteam.mvvm.presentation.viewmodel.BaseViewModel
 import com.litesoftteam.mvvm.sample.core.entity.User
 import com.litesoftteam.mvvm.sample.domain.repository.UserRepository
 import com.litesoftteam.mvvm.sample.presentation.navigation.screen.DetailsScreen
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.launch
 import ru.terrakok.cicerone.Router
 
 class UserListViewModel(
@@ -23,10 +20,8 @@ class UserListViewModel(
     val usersLiveData: LiveData<Event<List<User>>> = _usersLiveData
 
     fun loadUsers() {
-        viewModelScope.launch {
-            userRepository.getAllUsers().collect {
-                _usersLiveData.postValue(it)
-            }
+        subscribe(_usersLiveData) {
+            userRepository.getAllUsers()
         }
     }
 

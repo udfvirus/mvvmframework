@@ -73,4 +73,8 @@ abstract class BaseFragment : Fragment {
     @CallSuper
     protected open fun initObservers() {
     }
+
+    open fun onError(throwable: Throwable?) = throwable?.let {
+        // none
+    }
 }
