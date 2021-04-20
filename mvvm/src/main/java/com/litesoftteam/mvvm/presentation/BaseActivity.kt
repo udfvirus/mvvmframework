@@ -8,16 +8,17 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import com.litesoftteam.mvvm.core.entity.Event
 import com.litesoftteam.mvvm.core.entity.EventWithSuccessAndError
-import com.litesoftteam.mvvm.di.NavigationFactory
 import com.litesoftteam.mvvm.presentation.dialog.ProgressDialog
 import com.litesoftteam.mvvm.presentation.navigation.BaseNavigator
+import org.koin.android.ext.android.inject
+import ru.terrakok.cicerone.NavigatorHolder
 
 @Suppress("unused", "MemberVisibilityCanBePrivate")
 abstract class BaseActivity : AppCompatActivity {
 
     protected abstract val navigator: BaseNavigator
 
-    protected val navigatorHolder by lazy { NavigationFactory.getNavigationHolder() }
+    val navigatorHolder by inject<NavigatorHolder>()
 
     private var progressDialog: ProgressDialog? = null
 

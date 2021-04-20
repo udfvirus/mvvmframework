@@ -7,13 +7,16 @@ import androidx.lifecycle.viewModelScope
 import com.litesoftteam.mvvm.core.entity.Event
 import com.litesoftteam.mvvm.presentation.viewmodel.BaseViewModel
 import com.litesoftteam.mvvm.sample.core.entity.User
-import com.litesoftteam.mvvm.sample.data.repository.LocalUserRepository
+import com.litesoftteam.mvvm.sample.domain.repository.UserRepository
 import com.litesoftteam.mvvm.sample.presentation.navigation.screen.DetailsScreen
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import ru.terrakok.cicerone.Router
 
-class UserListViewModel(router: Router) : BaseViewModel(router) {
+class UserListViewModel(
+        router: Router,
+        private val userRepository: UserRepository
+) : BaseViewModel(router) {
 
     private val _usersLiveData = MutableLiveData<Event<List<User>>>()
 
@@ -21,7 +24,7 @@ class UserListViewModel(router: Router) : BaseViewModel(router) {
 
     fun loadUsers() {
         viewModelScope.launch {
-            LocalUserRepository().getAllUsers().collect {
+            userRepository.getAllUsers().collect {
                 _usersLiveData.postValue(it)
             }
         }
