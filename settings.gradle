@@ -1,3 +1,6 @@
 rootProject.name = "mvvmframework"
-include ':sample'
+
 include ':mvvm'
+
+if (!System.env.JITPACK)
+    include ':sample'
