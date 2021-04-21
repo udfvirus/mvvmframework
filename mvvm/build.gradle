@@ -1,7 +1,7 @@
 plugins {
     id 'com.android.library'
     id 'kotlin-android'
-    id 'maven-publish'
+//    id 'maven-publish'
 }
 
 android {
@@ -33,14 +33,14 @@ android {
     }
 }
 
-publishing {
-    publications {
-        maven(MavenPublication) {
-            groupId = 'com.litesoftteam.mvvm'
-            artifactId = 'mvvm'
-        }
-    }
-}
+//publishing {
+//    publications {
+//        maven(MavenPublication) {
+//            groupId = 'com.litesoftteam.mvvm'
+//            artifactId = 'mvvm'
+//        }
+//    }
+//}
 
 dependencies {
 
