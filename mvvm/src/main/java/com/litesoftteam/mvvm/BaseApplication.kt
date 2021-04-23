@@ -15,7 +15,7 @@ abstract class BaseApplication : Application() {
     @CallSuper
     override fun onCreate() {
         super.onCreate()
-        LoggerFactory.initialize(getLogger())
+        LoggerFactory.initialize { getLogger() }
         startKoin {
             androidLogger(Level.DEBUG)
             androidContext(this@BaseApplication)

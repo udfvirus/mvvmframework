@@ -30,13 +30,10 @@ abstract class BaseFragment : Fragment {
     protected fun <T> observeEvent(liveData: LiveData<Event<T>>,
                                    result: EventWithSuccessAndError<T>) {
         liveData.observe(this) {
-            when (it.status) {
-                Event.Status.SUCCESS -> {
-                    result.success(it.data!!)
-                }
-                Event.Status.ERROR -> {
-                    result.error(it.throwable!!)
-                }
+            if (it.status == Event.Status.SUCCESS) {
+                result.success(it.data!!)
+            } else if (it.status == Event.Status.ERROR) {
+                result.error(it.throwable!!)
             }
         }
     }
@@ -61,12 +58,10 @@ abstract class BaseFragment : Fragment {
     }
 
     protected open fun showProgressBar() {
-        println("test: showProgressBar")
         getBaseActivity()?.showProgressBar()
     }
 
     protected open fun hideProgressBar() {
-        println("test: hideProgressBar")
         getBaseActivity()?.hideProgressBar()
     }
 
