@@ -4,11 +4,11 @@ import com.litesoftteam.mvvm.BuildConfig
 
 object LoggerFactory {
 
-    private var loggerInterface: LoggerInterface? = null
+    private var getLogger: (() -> LoggerInterface)? = null
 
-    fun initialize(loggerInterface: LoggerInterface) {
-        this.loggerInterface = loggerInterface
-        loggerInterface.initialize()
+    fun initialize(getLogger: () -> LoggerInterface) {
+        this.getLogger = getLogger
+        getLogger().initialize()
     }
 
     fun create(aClass: Class<*>): LoggerInterface {
@@ -19,8 +19,13 @@ object LoggerFactory {
             aClass.canonicalName!!
         }
 
-        loggerInterface!!.setTag(tag)
+        return create(tag)
+    }
 
-        return loggerInterface!!
+    fun create(tag: String): LoggerInterface {
+        val loggerInterface = getLogger!!.invoke()
+        loggerInterface.setTag(tag)
+
+        return loggerInterface
     }
 }

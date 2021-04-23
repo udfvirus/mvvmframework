@@ -3,15 +3,15 @@ package com.litesoftteam.mvvm.sample.presentation.adapter.viewholder
 import android.view.ViewGroup
 import com.litesoftteam.mvvm.presentation.adapter.BaseViewHolder
 import com.litesoftteam.mvvm.sample.R
-import com.litesoftteam.mvvm.sample.core.entity.User
+import com.litesoftteam.mvvm.sample.core.entity.MenuItem
 import kotlinx.android.synthetic.main.layout_user_item.view.*
 
-class UserViewHolder(
+class MenuItemiewHolder(
         parent: ViewGroup,
-        private val onClickItemListener: (User) -> Unit
-) : BaseViewHolder<User>(parent, R.layout.layout_user_item) {
+        private val onClickItemListener: (MenuItem) -> Unit
+) : BaseViewHolder<MenuItem>(parent, R.layout.layout_user_item) {
 
-    override fun bind(item: User) {
+    override fun bind(item: MenuItem) {
         super.bind(item)
 
         itemView.setOnClickListener { onClickItemListener(item) }

@@ -5,32 +5,33 @@ import android.view.View
 import com.litesoftteam.mvvm.core.entity.EventWithSuccessAndError
 import com.litesoftteam.mvvm.presentation.BaseFragment
 import com.litesoftteam.mvvm.sample.R
-import com.litesoftteam.mvvm.sample.core.entity.User
-import com.litesoftteam.mvvm.sample.presentation.adapter.UserAdapter
-import com.litesoftteam.mvvm.sample.presentation.viewmodel.UserListViewModel
+import com.litesoftteam.mvvm.sample.core.entity.MenuItem
+import com.litesoftteam.mvvm.sample.presentation.adapter.MenuItemAdapter
+import com.litesoftteam.mvvm.sample.presentation.viewmodel.MenuItemViewModel
 import com.litesoftteam.mvvm.util.logger.LoggerFactory
 import kotlinx.android.synthetic.main.fragment_user_list.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class UserListFragment : BaseFragment(R.layout.fragment_user_list) {
+class MenuItemListFragment : BaseFragment(R.layout.fragment_user_list) {
 
-    private val model by viewModel<UserListViewModel>()
+    private val model by viewModel<MenuItemViewModel>()
 
     private val logger = LoggerFactory.create(this.javaClass)
 
-    private var userAdapter: UserAdapter? = null
+    private var menuItemAdapter: MenuItemAdapter? = null
 
     override fun initObservers() {
         super.initObservers()
 
-        observeEventWithProgress(model.usersLiveData, object : EventWithSuccessAndError<List<User>> {
+        observeEventWithProgress(model.menuLiveData, object : EventWithSuccessAndError<List<MenuItem>> {
 
-            override fun success(value: List<User>) {
-                logger.d("Users: $value")
-                userAdapter?.addItems(value)
+            override fun success(value: List<MenuItem>) {
+                logger.d("MenuItems: $value")
+                menuItemAdapter?.addItems(value)
             }
 
             override fun error(throwable: Throwable) {
+                throwable.printStackTrace()
                 logger.d("Throwable: $throwable")
             }
         })
@@ -40,16 +41,16 @@ class UserListFragment : BaseFragment(R.layout.fragment_user_list) {
         super.onViewCreated(view, savedInstanceState)
         initRecycleView()
 
-        model.loadUsers()
+        model.load()
     }
 
     private fun initRecycleView() {
-        userAdapter = UserAdapter(model::openDetailsScreen)
-        usersRecyclerView.adapter = userAdapter
+        menuItemAdapter = MenuItemAdapter(model::openDetailsScreen)
+        usersRecyclerView.adapter = menuItemAdapter
     }
 
 
     companion object {
-        fun newInstance() = UserListFragment()
+        fun newInstance() = MenuItemListFragment()
     }
 }
