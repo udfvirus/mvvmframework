@@ -6,7 +6,7 @@ import com.litesoftteam.mvvm.sample.R
 import com.litesoftteam.mvvm.sample.core.entity.MenuItem
 import kotlinx.android.synthetic.main.layout_user_item.view.*
 
-class MenuItemiewHolder(
+class MenuItemViewHolder(
         parent: ViewGroup,
         private val onClickItemListener: (MenuItem) -> Unit
 ) : BaseViewHolder<MenuItem>(parent, R.layout.layout_user_item) {

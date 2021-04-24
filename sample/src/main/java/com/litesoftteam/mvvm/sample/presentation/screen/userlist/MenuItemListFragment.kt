@@ -6,7 +6,7 @@ import com.litesoftteam.mvvm.core.entity.EventWithSuccessAndError
 import com.litesoftteam.mvvm.presentation.BaseFragment
 import com.litesoftteam.mvvm.sample.R
 import com.litesoftteam.mvvm.sample.core.entity.MenuItem
-import com.litesoftteam.mvvm.sample.presentation.adapter.MenuItemAdapter
+import com.litesoftteam.mvvm.sample.presentation.adapter.MenuItemsAdapter
 import com.litesoftteam.mvvm.sample.presentation.viewmodel.MenuItemViewModel
 import com.litesoftteam.mvvm.util.logger.LoggerFactory
 import kotlinx.android.synthetic.main.fragment_user_list.*
@@ -18,7 +18,7 @@ class MenuItemListFragment : BaseFragment(R.layout.fragment_user_list) {
 
     private val logger = LoggerFactory.create(this.javaClass)
 
-    private var menuItemAdapter: MenuItemAdapter? = null
+    private var menuItemAdapter: MenuItemsAdapter? = null
 
     override fun initObservers() {
         super.initObservers()
@@ -45,7 +45,7 @@ class MenuItemListFragment : BaseFragment(R.layout.fragment_user_list) {
     }
 
     private fun initRecycleView() {
-        menuItemAdapter = MenuItemAdapter(model::openDetailsScreen)
+        menuItemAdapter = MenuItemsAdapter(model::openDetailsScreen)
         usersRecyclerView.adapter = menuItemAdapter
     }
 
