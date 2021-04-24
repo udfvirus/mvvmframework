@@ -10,5 +10,6 @@ class NetworkCharacteristicRepository constructor(
 ) : CharacteristicRepository {
 
     override suspend fun getCharacteristicsByMenuId(menuId: Int) = api.getDeviceInfo(menuId)
+            .deviceInformation
             .map(CharacteristicMapper()::toCharacteristic)
 }

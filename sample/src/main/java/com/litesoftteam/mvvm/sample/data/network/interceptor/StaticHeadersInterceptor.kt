@@ -1,6 +1,7 @@
 package com.litesoftteam.mvvm.sample.data.network.interceptor
 
 import android.content.Context
+import android.os.Build
 import com.litesoftteam.mvvm.sample.data.network.Headers.Companion.ACCEPT
 import com.litesoftteam.mvvm.sample.data.network.Headers.Companion.ACCEPT_LANGUAGE
 import com.litesoftteam.mvvm.sample.data.network.Headers.Companion.APPLICATION_JSON_CONTENT_TYPE
@@ -19,13 +20,13 @@ class StaticHeadersInterceptor constructor(context: Context) : Interceptor {
 
     override fun intercept(chain: Interceptor.Chain): Response {
         val requestBuilder = chain.request()
-            .newBuilder()
-            .addHeader(ACCEPT, APPLICATION_JSON_CONTENT_TYPE)
-            .addHeader(CONTENT_TYPE, APPLICATION_JSON_CONTENT_TYPE)
-            .addHeader(USER_AGENT, userAgent)
-            .addHeader(ACCEPT_LANGUAGE, Locale.getDefault().language)
-            .addHeader(DEVICE_BRAND_KEY, "10.or")//Build.BRAND)
-            .addHeader(DEVICE_MODEL_KEY, "G2") //Build.MODEL)
+                .newBuilder()
+                .addHeader(ACCEPT, APPLICATION_JSON_CONTENT_TYPE)
+                .addHeader(CONTENT_TYPE, APPLICATION_JSON_CONTENT_TYPE)
+                .addHeader(USER_AGENT, userAgent)
+                .addHeader(ACCEPT_LANGUAGE, Locale.getDefault().language)
+                .addHeader(DEVICE_BRAND_KEY, Build.BRAND)
+                .addHeader(DEVICE_MODEL_KEY, Build.MODEL)
 
         return chain.proceed(requestBuilder.build())
     }
