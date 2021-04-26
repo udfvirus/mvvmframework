@@ -34,19 +34,15 @@ android {
 
 dependencies {
 
-    implementation 'androidx.appcompat:appcompat:1.2.0'
+    // ui
+    implementation Dependencies.recyclerView
 
-    implementation 'androidx.recyclerview:recyclerview:1.2.0'
-
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
-
-    implementation 'com.jakewharton.timber:timber:4.7.1'
-
-    implementation 'androidx.fragment:fragment-ktx:1.3.2'
+    // logger
+    implementation Dependencies.timber
 
     // navigation
-    implementation "ru.terrakok.cicerone:cicerone:5.1.1"
+    implementation Dependencies.cicerone
 
     // di
-    implementation "org.koin:koin-androidx-ext:2.2.2"
+    implementation Dependencies.koinAndroidxExt
 }
